@@ -243,6 +243,42 @@ td:nth-child(-n+2){text-align:left}
   .news-grid{grid-template-columns:repeat(3,1fr)}
   .index-grid{grid-template-columns:repeat(4,1fr)}
 }
+
+/* ── ═══════════════════════════════════ */
+/* PAGE 5 — ALLOCATE                      */
+/* ══════════════════════════════════════ */
+.alloc-hero{background:linear-gradient(135deg,#1E3A8A,#4F46E5);padding:20px max(20px,env(safe-area-inset-left,0px)) 20px}
+.alloc-hero-title{font-size:14px;font-weight:700;color:#fff}
+.alloc-hero-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:3px}
+.alloc-amount-row{display:flex;gap:8px;margin-top:14px;align-items:center}
+.alloc-input{flex:1;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 13px;color:#fff;font-family:var(--font);font-size:16px;font-weight:700;outline:none;font-variant-numeric:tabular-nums}
+.alloc-input::placeholder{color:rgba(255,255,255,.45)}
+.alloc-ccy-sel{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 10px;color:#fff;font-family:var(--font);font-size:12px;font-weight:600;outline:none;cursor:pointer;min-width:70px}
+.alloc-ccy-sel option{color:#0F172A;background:#fff}
+.alloc-body{padding:16px max(16px,env(safe-area-inset-left,0px))}
+.pie-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
+.pie-svg{width:200px;height:200px;overflow:visible;filter:drop-shadow(0 4px 16px rgba(37,99,235,.15))}
+.pie-center{font-size:11px;fill:var(--muted);font-family:var(--font)}
+.pie-center-val{font-size:18px;font-weight:700;fill:var(--text);font-family:var(--font);font-variant-numeric:tabular-nums}
+.alloc-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.alloc-total-lbl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.alloc-total-val{font-size:13px;font-weight:700}
+.alloc-total-ok{color:var(--green)}.alloc-total-warn{color:var(--red)}.alloc-total-low{color:var(--gold)}
+.balance-btn{font-size:10px;font-weight:600;color:var(--blue);background:var(--blue-light);border:none;border-radius:20px;padding:4px 10px;cursor:pointer}
+.sector-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
+.sector-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.sector-name{flex:1;font-size:12px;font-weight:600;color:var(--text)}
+.sector-pct-input{width:52px;text-align:center;border:1px solid var(--border2);border-radius:7px;padding:4px 6px;font-size:12px;font-weight:700;color:var(--text);font-family:var(--font);background:var(--surface2);outline:none}
+.sector-amt{font-size:11px;color:var(--muted);min-width:70px;text-align:right;font-variant-numeric:tabular-nums}
+.sector-slider{width:100%;accent-color:var(--blue);cursor:pointer;height:4px;margin-top:6px}
+.sector-inner{flex:1}
+.alloc-breakdown{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);margin-top:4px}
+.alloc-breakdown-hdr{background:var(--surface2);padding:10px 14px;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;display:grid;grid-template-columns:1fr 60px 90px}
+.alloc-breakdown-row{padding:10px 14px;display:grid;grid-template-columns:1fr 60px 90px;border-top:1px solid var(--border);align-items:center}
+.alloc-row-name{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600}
+.alloc-row-pct{font-size:11px;color:var(--muted);font-weight:600;text-align:right}
+.alloc-row-amt{font-size:12px;font-weight:700;color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
+
 </style>
 
 <div id="app">
@@ -463,6 +499,51 @@ td:nth-child(-n+2){text-align:left}
   </div>
 </div>
 
+<!-- ══ PAGE 5: ALLOCATE ════════════════════ -->
+<div class="page" id="p-allocate">
+  <div class="alloc-hero">
+    <div class="alloc-hero-title">Portfolio Allocator</div>
+    <div class="alloc-hero-sub">Enter an amount — we split it across sectors automatically</div>
+    <div style="margin-top:12px">
+      <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Risk Profile</div>
+      <div style="display:flex;gap:8px">
+        <button id="risk-low"  class="risk-btn" onclick="setRiskProfile('low')"  style="flex:1;padding:8px 4px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font)">🛡 Low Risk<br><span style="font-size:9px;opacity:.7">Steady returns</span></button>
+        <button id="risk-mid"  class="risk-btn active-risk" onclick="setRiskProfile('mid')"  style="flex:1;padding:8px 4px;border-radius:10px;border:1.5px solid #fff;background:rgba(255,255,255,.25);color:#fff;font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font)">⚖ Medium Risk<br><span style="font-size:9px;opacity:.8">Balanced</span></button>
+        <button id="risk-high" class="risk-btn" onclick="setRiskProfile('high')" style="flex:1;padding:8px 4px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font)">🚀 High Risk<br><span style="font-size:9px;opacity:.7">High reward</span></button>
+      </div>
+    </div>
+    <div class="alloc-amount-row">
+      <input class="alloc-input" id="alloc-amount" type="number" placeholder="10000" value="10000" min="1" oninput="renderAllocate()">
+      <select class="alloc-ccy-sel" id="alloc-ccy" onchange="renderAllocate()">
+        <option value="USD">USD $</option>
+        <option value="EUR">EUR €</option>
+        <option value="GBP">GBP £</option>
+        <option value="JPY">JPY ¥</option>
+        <option value="TRY">TRY ₺</option>
+      </select>
+    </div>
+  </div>
+  <div class="alloc-body">
+    <div class="pie-wrap">
+      <svg class="pie-svg" id="alloc-pie" viewBox="0 0 200 200"></svg>
+    </div>
+    <div class="alloc-total-row">
+      <span class="alloc-total-lbl">Allocated</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="balance-btn" onclick="autoBalance()">⚖ Auto-balance</button>
+        <span class="alloc-total-val" id="alloc-total-val">100%</span>
+      </div>
+    </div>
+    <div id="alloc-sectors"></div>
+    <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px">Breakdown</div>
+    <div class="alloc-breakdown">
+      <div class="alloc-breakdown-hdr"><span>Sector</span><span style="text-align:right">%</span><span style="text-align:right">Amount</span></div>
+      <div id="alloc-breakdown-rows"></div>
+    </div>
+    <div style="font-size:9px;color:var(--muted);margin-top:12px;text-align:center">Default weights based on Global Stock Market by Sector Value 2025 · Damodaran / Visual Capitalist</div>
+  </div>
+</div>
+
 <!-- ══ BOTTOM NAV ═══════════════════════════ -->
 <nav>
   <button class="nav-item active" id="nav-home" onclick="goPage('home')">
@@ -480,6 +561,10 @@ td:nth-child(-n+2){text-align:left}
   <button class="nav-item" id="nav-news" onclick="goPage('news')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
     News
+  </button>
+  <button class="nav-item" id="nav-allocate" onclick="goPage('allocate')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 7.07 17.07"/><path d="M12 12 2.93 7.5"/><path d="M12 2v10l7.07 2.5"/></svg>
+    Allocate
   </button>
 </nav>
 </div>
@@ -772,6 +857,7 @@ function goPage(p){
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('p-'+p).classList.add('active');
   document.getElementById('nav-'+p).classList.add('active');
+  if(p==='allocate') renderAllocate();
 }
 
 /* ── category buttons ─── */
@@ -993,4 +1079,137 @@ async function fetchNews() {
 
 fetchNews();
 setInterval(fetchNews, 120000); // refresh every 2 minutes
+
+// ═══════════════════════════════════════════
+// PAGE 5 — PORTFOLIO ALLOCATOR
+// ═══════════════════════════════════════════
+
+const SECTORS = [
+  { name:"Information Tech",  color:"#6366F1" },
+  { name:"Financials",        color:"#0EA5E9" },
+  { name:"Industrials",       color:"#F59E0B" },
+  { name:"Consumer Discret.", color:"#EC4899" },
+  { name:"Health Care",       color:"#10B981" },
+  { name:"Communications",    color:"#8B5CF6" },
+  { name:"Consumer Staples",  color:"#14B8A6" },
+  { name:"Materials",         color:"#F97316" },
+  { name:"Energy",            color:"#EF4444" },
+  { name:"Real Estate",       color:"#84CC16" },
+  { name:"Utilities",         color:"#64748B" },
+];
+
+const RISK_WEIGHTS = {
+  low:  [8, 20, 12, 1,  15, 3,  15, 1,  5,  8,  12],
+  mid:  [21,17, 12, 11, 9,  8,  6,  5,  5,  3,  3 ],
+  high: [30,15, 10, 15, 7,  10, 3,  4,  3,  2,  1 ],
+};
+
+let allocPcts = [...RISK_WEIGHTS.mid];
+let currentRisk = 'mid';
+
+function setRiskProfile(risk) {
+  currentRisk = risk;
+  allocPcts = [...RISK_WEIGHTS[risk]];
+  document.querySelectorAll('.risk-btn').forEach(b => {
+    const isActive = b.id === 'risk-' + risk;
+    b.style.border = isActive ? '1.5px solid #fff' : '1.5px solid rgba(255,255,255,.25)';
+    b.style.background = isActive ? 'rgba(255,255,255,.25)' : 'rgba(255,255,255,.1)';
+    b.style.color = isActive ? '#fff' : 'rgba(255,255,255,.75)';
+    b.style.fontWeight = isActive ? '700' : '600';
+  });
+  renderAllocate();
+}
+
+function allocAmount() {
+  return parseFloat(document.getElementById('alloc-amount')?.value) || 0;
+}
+function allocCcy() {
+  return document.getElementById('alloc-ccy')?.value || 'USD';
+}
+function fmtAllocAmt(usdVal) {
+  const ccy = allocCcy();
+  const rate = FX[ccy] || 1;
+  const sym = {USD:'$',EUR:'€',GBP:'£',JPY:'¥',TRY:'₺'}[ccy] || '';
+  const v = usdVal * rate;
+  if (Math.abs(v) >= 1e6) return sym + (v/1e6).toFixed(2) + 'M';
+  if (Math.abs(v) >= 1e3) return sym + (v/1e3).toFixed(1) + 'k';
+  return sym + v.toFixed(2);
+}
+
+function totalPct() { return allocPcts.reduce((a,b)=>a+b,0); }
+
+function drawPie() {
+  const svg = document.getElementById('alloc-pie');
+  if (!svg) return;
+  const total = totalPct();
+  if (total <= 0) { svg.innerHTML=''; return; }
+  const cx=100,cy=100,r=80,ri=48;
+  let angle = -Math.PI/2;
+  let paths = '';
+  SECTORS.forEach((s,i) => {
+    const frac = allocPcts[i] / total;
+    if (frac <= 0) return;
+    const sweep = frac * 2 * Math.PI;
+    const x1=cx+r*Math.cos(angle), y1=cy+r*Math.sin(angle);
+    const x2=cx+r*Math.cos(angle+sweep), y2=cy+r*Math.sin(angle+sweep);
+    const ix1=cx+ri*Math.cos(angle), iy1=cy+ri*Math.sin(angle);
+    const ix2=cx+ri*Math.cos(angle+sweep), iy2=cy+ri*Math.sin(angle+sweep);
+    const large = sweep > Math.PI ? 1 : 0;
+    paths += `<path d="M${ix1},${iy1} L${x1},${y1} A${r},${r},0,${large},1,${x2},${y2} L${ix2},${iy2} A${ri},${ri},0,${large},0,${ix1},${iy1}Z" fill="${s.color}" opacity="0.92" style="transition:opacity .2s" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.92"><title>${s.name}: ${allocPcts[i]}%</title></path>`;
+    angle += sweep;
+  });
+  const amtLine = fmtAllocAmt(allocAmount() / (FX[allocCcy()]||1));
+  svg.innerHTML = paths +
+    `<text x="100" y="93" text-anchor="middle" class="pie-center">Total</text>` +
+    `<text x="100" y="113" text-anchor="middle" class="pie-center-val">${amtLine}</text>`;
+}
+
+function renderAllocate() {
+  const total = totalPct();
+  // total badge
+  const tv = document.getElementById('alloc-total-val');
+  if (tv) {
+    tv.textContent = total + '%';
+    tv.className = 'alloc-total-val ' + (total===100?'alloc-total-ok':total>100?'alloc-total-warn':'alloc-total-low');
+  }
+  // sector sliders
+  const sc = document.getElementById('alloc-sectors');
+  if (sc) {
+    sc.innerHTML = SECTORS.map((s,i) => `
+      <div class="sector-row">
+        <div class="sector-dot" style="background:${s.color}"></div>
+        <div class="sector-inner">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="sector-name">${s.name}</span>
+            <input type="number" class="sector-pct-input" min="0" max="100" value="${allocPcts[i]}"
+              oninput="allocPcts[${i}]=Math.max(0,Math.min(100,+this.value||0));renderAllocate()">
+            <span class="sector-amt">${fmtAllocAmt(allocAmount() * allocPcts[i]/100 / (FX[allocCcy()]||1))}</span>
+          </div>
+          <input type="range" class="sector-slider" min="0" max="60" value="${allocPcts[i]}"
+            oninput="allocPcts[${i}]=+this.value;document.querySelectorAll('.sector-pct-input')[${i}].value=this.value;renderAllocate()">
+        </div>
+      </div>`).join('');
+  }
+  // breakdown table
+  const br = document.getElementById('alloc-breakdown-rows');
+  if (br) {
+    br.innerHTML = SECTORS.map((s,i) => `
+      <div class="alloc-breakdown-row">
+        <span class="alloc-row-name"><span class="sector-dot" style="background:${s.color}"></span>${s.name}</span>
+        <span class="alloc-row-pct">${allocPcts[i]}%</span>
+        <span class="alloc-row-amt">${fmtAllocAmt(allocAmount() * allocPcts[i]/100 / (FX[allocCcy()]||1))}</span>
+      </div>`).join('');
+  }
+  drawPie();
+}
+
+function autoBalance() {
+  const each = Math.floor(100/SECTORS.length);
+  const rem  = 100 - each*SECTORS.length;
+  allocPcts = SECTORS.map((_,i)=>each+(i<rem?1:0));
+  renderAllocate();
+}
+// initial render
+renderAllocate();
+
 </script>
