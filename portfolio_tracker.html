@@ -387,52 +387,33 @@ td:nth-child(-n+2){text-align:left}
 <!-- ══ PAGE 4: NEWS ══════════════════════════ -->
 <div class="page" id="p-news">
   <div class="news-hero">
-    <div style="font-size:14px;font-weight:600;color:#fff">Financial News</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">Markets · Investing · Economy</div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:#fff">Financial News</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">Markets · Investing · Economy</div>
+      </div>
+      <div id="news-status" style="font-size:9px;color:rgba(255,255,255,.45);text-align:right">Loading…</div>
+    </div>
     <div class="news-search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" placeholder="Search articles…">
+      <input type="text" id="news-search-input" placeholder="Search articles…" oninput="filterNews()">
     </div>
   </div>
-  <div class="cat-row">
-    <button class="cat-btn active">All</button>
-    <button class="cat-btn">Markets</button>
-    <button class="cat-btn">Tech</button>
-    <button class="cat-btn">Economy</button>
-    <button class="cat-btn">Crypto</button>
-    <button class="cat-btn">Earnings</button>
-    <button class="cat-btn">FX</button>
+  <div class="cat-row" id="cat-row">
+    <button class="cat-btn active" onclick="setNewsCat('All',this)">All</button>
+    <button class="cat-btn" onclick="setNewsCat('Markets',this)">Markets</button>
+    <button class="cat-btn" onclick="setNewsCat('Tech',this)">Tech</button>
+    <button class="cat-btn" onclick="setNewsCat('Economy',this)">Economy</button>
+    <button class="cat-btn" onclick="setNewsCat('Crypto',this)">Crypto</button>
+    <button class="cat-btn" onclick="setNewsCat('Earnings',this)">Earnings</button>
+    <button class="cat-btn" onclick="setNewsCat('FX',this)">FX</button>
   </div>
-
-  <div class="featured-card">
-    <div class="feat-img" style="background:linear-gradient(135deg,#1E3A8A 0%,#7C3AED 60%,#C2410C 100%)">
-      <span class="feat-tag">FEATURED · MARKETS</span>
-    </div>
-    <div class="feat-body">
-      <div class="feat-title">Fed Signals Three Rate Cuts in 2025 as Inflation Eases Toward Target</div>
-      <div class="feat-meta"><span>Bloomberg · 2h ago</span><span>5 min read</span></div>
-    </div>
-  </div>
-
-  <div class="section-lbl">Latest Stories</div>
-  <div class="news-grid">
-    <div class="news-card"><div class="nc-img" style="background:linear-gradient(135deg,#1E3A8A,#6366F1)"></div><div class="nc-body"><div class="nc-cat">Tech</div><div class="nc-title">NVIDIA Surpasses $3T Market Cap on AI Chip Demand</div><div class="nc-meta">Reuters · 1h ago</div></div></div>
-    <div class="news-card"><div class="nc-img" style="background:linear-gradient(135deg,#065F46,#059669)"></div><div class="nc-body"><div class="nc-cat">Economy</div><div class="nc-title">S&P 500 Hits Record High as Earnings Beat Expectations</div><div class="nc-meta">WSJ · 3h ago</div></div></div>
-    <div class="news-card"><div class="nc-img" style="background:linear-gradient(135deg,#7C2D12,#DC2626)"></div><div class="nc-body"><div class="nc-cat">FX</div><div class="nc-title">Turkish Lira Stabilizes After TCMB Rate Decision</div><div class="nc-meta">FT · 4h ago</div></div></div>
-    <div class="news-card"><div class="nc-img" style="background:linear-gradient(135deg,#1E3A8A,#0369A1)"></div><div class="nc-body"><div class="nc-cat">Earnings</div><div class="nc-title">Meta Reports 22% Revenue Growth in Q3 2025</div><div class="nc-meta">CNBC · 5h ago</div></div></div>
-    <div class="news-card"><div class="nc-img" style="background:linear-gradient(135deg,#4A1D96,#7C3AED)"></div><div class="nc-body"><div class="nc-cat">Markets</div><div class="nc-title">ASML Orders Surge as Chipmakers Expand Capacity</div><div class="nc-meta">Bloomberg · 6h ago</div></div></div>
-    <div class="news-card"><div class="nc-img" style="background:linear-gradient(135deg,#052e16,#15803D)"></div><div class="nc-body"><div class="nc-cat">Tech</div><div class="nc-title">Apple Vision Pro 2 Set for Q1 2026 Launch</div><div class="nc-meta">9to5Mac · 7h ago</div></div></div>
-  </div>
-
-  <div class="section-lbl">More Headlines</div>
-  <div class="news-list">
-    <div class="nl-item"><div class="nl-cat">Economy</div><div class="nl-title">IMF Raises Global Growth Forecast to 3.4% for 2025</div><div class="nl-meta"><span>IMF · 8h ago</span><span>3 min read</span></div></div>
-    <div class="nl-item"><div class="nl-cat">Crypto</div><div class="nl-title">Bitcoin Consolidates Above $95,000 Ahead of ETF Decision</div><div class="nl-meta"><span>CoinDesk · 9h ago</span><span>4 min read</span></div></div>
-    <div class="nl-item"><div class="nl-cat">Earnings</div><div class="nl-title">Broadcom's AI Division Revenue Up 42% Year-on-Year</div><div class="nl-meta"><span>Barron's · 10h ago</span><span>3 min read</span></div></div>
-    <div class="nl-item"><div class="nl-cat">Markets</div><div class="nl-title">Taiwan Semiconductor Plants Record Shipments in October</div><div class="nl-meta"><span>Reuters · 11h ago</span><span>2 min read</span></div></div>
-    <div class="nl-item"><div class="nl-cat">FX</div><div class="nl-title">Euro Strengthens as ECB Hints at Pause in Rate Cuts</div><div class="nl-meta"><span>FT · 12h ago</span><span>3 min read</span></div></div>
-    <div class="nl-item"><div class="nl-cat">Tech</div><div class="nl-title">Amazon Web Services Announces $10B Data Center Expansion</div><div class="nl-meta"><span>Bloomberg · 14h ago</span><span>4 min read</span></div></div>
-  </div>
+  <div id="news-featured"></div>
+  <div class="section-lbl" id="news-grid-lbl" style="display:none">Latest Stories</div>
+  <div class="news-grid" id="news-grid"></div>
+  <div class="section-lbl" id="news-list-lbl" style="display:none">More Headlines</div>
+  <div class="news-list" id="news-list"></div>
+  <div id="news-empty" style="display:none;padding:40px 20px;text-align:center;color:var(--muted);font-size:12px">No articles found</div>
 </div>
 
 <!-- ══ ADD / EDIT POSITION MODAL ════════════ -->
@@ -923,4 +904,93 @@ renderTable();updateInvHero();updateSummaryTab();updatePlats();updateLanding();u
 setInterval(tick,1200);
 fetchRealPrices();
 setInterval(fetchRealPrices, 30000);
+
+/* ── news renderer ───────────────────────────
+   Fetches from price_server /api/news every 2 min.
+   Falls back silently if server not running.
+─────────────────────────────────────────── */
+let allArticles = [];
+let newsCat     = 'All';
+
+function setNewsCat(cat, btn) {
+  newsCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNews();
+}
+
+function filterNews() { renderNews(); }
+
+function visibleArticles() {
+  const q   = (document.getElementById('news-search-input')?.value || '').toLowerCase();
+  const arr = newsCat === 'All' ? allArticles : allArticles.filter(a => a.category === newsCat);
+  if (!q) return arr;
+  return arr.filter(a => a.title.toLowerCase().includes(q) || (a.summary||'').toLowerCase().includes(q));
+}
+
+function escH(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderNews() {
+  const arts = visibleArticles();
+  const feat = document.getElementById('news-featured');
+  const grid = document.getElementById('news-grid');
+  const list = document.getElementById('news-list');
+  const gl   = document.getElementById('news-grid-lbl');
+  const ll   = document.getElementById('news-list-lbl');
+  const emp  = document.getElementById('news-empty');
+
+  if (!arts.length) {
+    feat.innerHTML = ''; grid.innerHTML = ''; list.innerHTML = '';
+    gl.style.display = ll.style.display = 'none';
+    emp.style.display = 'block';
+    return;
+  }
+  emp.style.display = 'none';
+
+  // Featured (first article)
+  const f = arts[0];
+  feat.innerHTML = `<div class="featured-card"><div class="feat-img" style="background:${escH(f.gradient)}">
+    <span class="feat-tag">FEATURED · ${escH(f.category.toUpperCase())}</span></div>
+    <div class="feat-body">
+      <div class="feat-title"><a href="${escH(f.url)}" target="_blank" style="color:inherit;text-decoration:none">${escH(f.title)}</a></div>
+      <div class="feat-meta"><span>${escH(f.source)} · ${escH(f.time_ago)}</span></div>
+    </div></div>`;
+
+  // Grid (articles 1–6)
+  const gridArts = arts.slice(1, 7);
+  gl.style.display = gridArts.length ? 'block' : 'none';
+  grid.innerHTML = gridArts.map(a => `
+    <div class="news-card"><div class="nc-img" style="background:${escH(a.gradient)}"></div>
+    <div class="nc-body"><div class="nc-cat">${escH(a.category)}</div>
+    <div class="nc-title"><a href="${escH(a.url)}" target="_blank" style="color:inherit;text-decoration:none">${escH(a.title)}</a></div>
+    <div class="nc-meta">${escH(a.source)} · ${escH(a.time_ago)}</div></div></div>`).join('');
+
+  // List (articles 7+)
+  const listArts = arts.slice(7);
+  ll.style.display = listArts.length ? 'block' : 'none';
+  list.innerHTML = listArts.map(a => `
+    <div class="nl-item"><div class="nl-cat">${escH(a.category)}</div>
+    <div class="nl-title"><a href="${escH(a.url)}" target="_blank" style="color:inherit;text-decoration:none">${escH(a.title)}</a></div>
+    <div class="nl-meta"><span>${escH(a.source)} · ${escH(a.time_ago)}</span></div></div>`).join('');
+}
+
+async function fetchNews() {
+  try {
+    const res  = await fetch('http://localhost:5001/api/news', {signal: AbortSignal.timeout(5000)});
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.articles && data.articles.length) {
+      allArticles = data.articles;
+      renderNews();
+      const st = document.getElementById('news-status');
+      if (st) {
+        const t = data.updated_at ? new Date(data.updated_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+        st.textContent = `${data.count} articles · ${t}`;
+      }
+    }
+  } catch(_) { /* server not running — keep static fallback */ }
+}
+
+fetchNews();
+setInterval(fetchNews, 120000); // refresh every 2 minutes
 </script>
