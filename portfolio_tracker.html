@@ -279,6 +279,40 @@ td:nth-child(-n+2){text-align:left}
 .alloc-row-pct{font-size:11px;color:var(--muted);font-weight:600;text-align:right}
 .alloc-row-amt{font-size:12px;font-weight:700;color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
 
+
+.stock-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.stock-chip{font-size:9px;font-weight:700;color:var(--text);background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:2px 6px;font-family:var(--font);letter-spacing:.02em}
+.stock-chip.crypto{color:#F7B500;border-color:rgba(247,181,0,.35);background:rgba(247,181,0,.1)}
+.breakdown-stock-row{padding:7px 14px 7px 36px;display:grid;grid-template-columns:1fr 60px 90px;border-top:1px solid var(--border);align-items:center;background:var(--surface)}
+.breakdown-stock-name{font-size:10px;color:var(--muted);font-weight:600}
+.breakdown-stock-pct{font-size:10px;color:var(--muted);text-align:right}
+.breakdown-stock-amt{font-size:10px;font-weight:700;color:var(--blue);text-align:right;font-variant-numeric:tabular-nums}
+
+/* ── AI CHAT ─────────────────────────────── */
+.ai-fab{position:fixed;bottom:calc(var(--nav-h,64px) + 14px);right:14px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(99,102,241,.45);display:flex;align-items:center;justify-content:center;z-index:200;transition:transform .15s}
+.ai-fab:active{transform:scale(.92)}
+.ai-fab svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2}
+.ai-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:flex-end;backdrop-filter:blur(2px)}
+.ai-overlay.open{display:flex}
+.ai-panel{background:var(--bg);border-radius:22px 22px 0 0;width:100%;max-height:82vh;display:flex;flex-direction:column;padding:0 0 max(12px,env(safe-area-inset-bottom,0px)) 0;box-shadow:0 -8px 40px rgba(0,0,0,.2)}
+.ai-handle-row{padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.ai-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:7px}
+.ai-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff}
+.ai-close{font-size:18px;color:var(--muted);background:none;border:none;cursor:pointer;line-height:1;padding:2px 6px}
+.ai-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding:12px 14px;min-height:120px}
+.ai-msg{padding:9px 12px;border-radius:12px;font-size:12px;line-height:1.55;max-width:88%;word-break:break-word;white-space:pre-wrap}
+.ai-msg.user{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;align-self:flex-end;border-radius:12px 12px 3px 12px}
+.ai-msg.bot{background:var(--surface);border:1px solid var(--border);color:var(--text);align-self:flex-start;border-radius:12px 12px 12px 3px}
+.ai-msg.thinking{opacity:.55;font-style:italic}
+.ai-input-row{display:flex;gap:8px;padding:8px 14px 0;border-top:1px solid var(--border)}
+.ai-input{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--text);font-family:var(--font);outline:none;resize:none;height:40px;min-height:40px}
+.ai-send-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;border-radius:12px;padding:0 16px;color:#fff;font-weight:700;font-size:12px;cursor:pointer;min-width:52px;height:40px}
+.ai-key-wrap{padding:10px 14px;background:rgba(99,102,241,.07);border-top:1px solid var(--border)}
+.ai-key-row{display:flex;gap:7px}
+.ai-key-input{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:9px;padding:8px 10px;font-size:11px;color:var(--text);font-family:var(--font);outline:none}
+.ai-key-save{background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;border-radius:9px;padding:0 13px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;height:34px}
+.ai-key-hint{font-size:9px;color:var(--muted);margin-top:5px}
+
 </style>
 
 <div id="app">
@@ -1085,23 +1119,24 @@ setInterval(fetchNews, 120000); // refresh every 2 minutes
 // ═══════════════════════════════════════════
 
 const SECTORS = [
-  { name:"Information Tech",  color:"#6366F1" },
-  { name:"Financials",        color:"#0EA5E9" },
-  { name:"Industrials",       color:"#F59E0B" },
-  { name:"Consumer Discret.", color:"#EC4899" },
-  { name:"Health Care",       color:"#10B981" },
-  { name:"Communications",    color:"#8B5CF6" },
-  { name:"Consumer Staples",  color:"#14B8A6" },
-  { name:"Materials",         color:"#F97316" },
-  { name:"Energy",            color:"#EF4444" },
-  { name:"Real Estate",       color:"#84CC16" },
-  { name:"Utilities",         color:"#64748B" },
+  { name:"Information Tech",  color:"#6366F1", stocks:["AAPL","MSFT","NVDA","TSM","ASML","AVGO","AMD"] },
+  { name:"Financials",        color:"#0EA5E9", stocks:["AXP","JPM","V","MA","GS","BRK-B","HSBC"] },
+  { name:"Industrials",       color:"#F59E0B", stocks:["CAT","HON","RTX","GE","UPS","DE","BA"] },
+  { name:"Consumer Discret.", color:"#EC4899", stocks:["AMZN","TSLA","NKE","MCD","HD","BKNG","TM"] },
+  { name:"Health Care",       color:"#10B981", stocks:["JNJ","UNH","LLY","ABBV","PFE","MRK","NVO"] },
+  { name:"Communications",    color:"#8B5CF6", stocks:["META","GOOG","NFLX","DIS","T","VZ","SNAP"] },
+  { name:"Consumer Staples",  color:"#14B8A6", stocks:["PG","KO","PEP","WMT","COST","PM","MDLZ"] },
+  { name:"Materials",         color:"#F97316", stocks:["LIN","APD","ECL","NEM","FCX","BHP","RIO"] },
+  { name:"Energy",            color:"#EF4444", stocks:["XOM","CVX","COP","SLB","BP","TTE","PSX"] },
+  { name:"Real Estate",       color:"#84CC16", stocks:["PLD","AMT","EQIX","CCI","SPG","PSA","O"] },
+  { name:"Utilities",         color:"#64748B", stocks:["NEE","DUK","SO","D","EXC","AEP","XEL"] },
+  { name:"Crypto / Alt.",     color:"#F7B500", stocks:["ETH","BTC","SOL","BNB","COIN","MSTR","IBIT"], crypto:true },
 ];
 
 const RISK_WEIGHTS = {
-  low:  [8, 20, 12, 1,  15, 3,  15, 1,  5,  8,  12],
-  mid:  [21,17, 12, 11, 9,  8,  6,  5,  5,  3,  3 ],
-  high: [30,15, 10, 15, 7,  10, 3,  4,  3,  2,  1 ],
+  low:  [7, 18, 11, 1,  15, 3,  14, 1,  5,  8,  12, 5 ],
+  mid:  [19, 16, 11, 10, 9,  7,  5,  5,  5,  3,  3,  7 ],
+  high: [28, 12, 9,  14, 6,  9,  2,  3,  2,  1,  1,  13],
 };
 
 let allocPcts = [...RISK_WEIGHTS.mid];
@@ -1155,7 +1190,7 @@ function drawPie() {
     const ix1=cx+ri*Math.cos(angle), iy1=cy+ri*Math.sin(angle);
     const ix2=cx+ri*Math.cos(angle+sweep), iy2=cy+ri*Math.sin(angle+sweep);
     const large = sweep > Math.PI ? 1 : 0;
-    paths += `<path d="M${ix1},${iy1} L${x1},${y1} A${r},${r},0,${large},1,${x2},${y2} L${ix2},${iy2} A${ri},${ri},0,${large},0,${ix1},${iy1}Z" fill="${s.color}" opacity="0.92" style="transition:opacity .2s" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.92"><title>${s.name}: ${allocPcts[i]}%</title></path>`;
+    paths += `<path d="M${ix1},${iy1} L${x1},${y1} A${r},${r},0,${large},1,${x2},${y2} L${ix2},${iy2} A${ri},${ri},0,${large},0,${ix1},${iy1}Z" fill="${s.color}" opacity="0.9" style="transition:opacity .2s;cursor:pointer" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.9"><title>${s.name}: ${allocPcts[i]}%</title></path>`;
     angle += sweep;
   });
   const amtLine = fmtAllocAmt(allocAmount() / (FX[allocCcy()]||1));
@@ -1166,17 +1201,16 @@ function drawPie() {
 
 function renderAllocate() {
   const total = totalPct();
-  // total badge
   const tv = document.getElementById('alloc-total-val');
   if (tv) {
     tv.textContent = total + '%';
     tv.className = 'alloc-total-val ' + (total===100?'alloc-total-ok':total>100?'alloc-total-warn':'alloc-total-low');
   }
-  // sector sliders
   const sc = document.getElementById('alloc-sectors');
   if (sc) {
-    sc.innerHTML = SECTORS.map((s,i) => `
-      <div class="sector-row">
+    sc.innerHTML = SECTORS.map((s,i) => {
+      const chips = s.stocks.map(t=>`<span class="stock-chip${s.crypto?' crypto':''}">${t}</span>`).join('');
+      return `<div class="sector-row">
         <div class="sector-dot" style="background:${s.color}"></div>
         <div class="sector-inner">
           <div style="display:flex;align-items:center;gap:8px">
@@ -1187,18 +1221,31 @@ function renderAllocate() {
           </div>
           <input type="range" class="sector-slider" min="0" max="60" value="${allocPcts[i]}"
             oninput="allocPcts[${i}]=+this.value;document.querySelectorAll('.sector-pct-input')[${i}].value=this.value;renderAllocate()">
+          <div class="stock-chips">${chips}</div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
-  // breakdown table
   const br = document.getElementById('alloc-breakdown-rows');
   if (br) {
-    br.innerHTML = SECTORS.map((s,i) => `
-      <div class="alloc-breakdown-row">
+    const baseUSD = allocAmount() / (FX[allocCcy()]||1);
+    br.innerHTML = SECTORS.map((s,i) => {
+      const sectorAmt = baseUSD * allocPcts[i] / 100;
+      const perStock = sectorAmt / s.stocks.length;
+      const pctPerStock = allocPcts[i] > 0 ? (allocPcts[i] / s.stocks.length).toFixed(1) : '0';
+      const stockRows = allocPcts[i] > 0 ? s.stocks.map(t=>
+        `<div class="breakdown-stock-row">
+          <span class="breakdown-stock-name${s.crypto?' crypto':''}" style="${s.crypto?'color:#F7B500':''}">${t}</span>
+          <span class="breakdown-stock-pct">${pctPerStock}%</span>
+          <span class="breakdown-stock-amt">${fmtAllocAmt(perStock)}</span>
+        </div>`).join('') : '';
+      return `<div class="alloc-breakdown-row" style="cursor:pointer" onclick="this.nextSibling&&(this.nextSibling.style.display=this.nextSibling.style.display==='none'?'':'none')">
         <span class="alloc-row-name"><span class="sector-dot" style="background:${s.color}"></span>${s.name}</span>
         <span class="alloc-row-pct">${allocPcts[i]}%</span>
-        <span class="alloc-row-amt">${fmtAllocAmt(allocAmount() * allocPcts[i]/100 / (FX[allocCcy()]||1))}</span>
-      </div>`).join('');
+        <span class="alloc-row-amt">${fmtAllocAmt(sectorAmt)}</span>
+      </div>
+      <div>${stockRows}</div>`;
+    }).join('');
   }
   drawPie();
 }
@@ -1209,7 +1256,104 @@ function autoBalance() {
   allocPcts = SECTORS.map((_,i)=>each+(i<rem?1:0));
   renderAllocate();
 }
-// initial render
 renderAllocate();
+
+// ═══════════════════════════════════════════
+// AI CHAT ASSISTANT
+// ═══════════════════════════════════════════
+
+let aiHistory = [];
+let aiOpen = false;
+
+const AI_SYSTEM = `You are a smart financial assistant embedded in FinTrack, a personal portfolio tracker. Help users understand their investments, sector allocations, stock picks, market concepts, risk profiles, and investment strategies. Be concise, friendly, and professional. Use plain text only — no markdown, no asterisks, no bullet dashes. Keep answers under 150 words unless more detail is clearly needed.`;
+
+function toggleAI() {
+  aiOpen = !aiOpen;
+  const overlay = document.getElementById('ai-overlay');
+  if (overlay) overlay.classList.toggle('open', aiOpen);
+  if (aiOpen) {
+    checkAIKey();
+    setTimeout(()=>document.getElementById('ai-input')?.focus(),200);
+  }
+}
+
+function checkAIKey() {
+  const key = localStorage.getItem('fintrack_ai_key');
+  const wrap = document.getElementById('ai-key-wrap');
+  if (wrap) wrap.style.display = key ? 'none' : 'block';
+}
+
+function saveAIKey() {
+  const val = document.getElementById('ai-key-input')?.value.trim();
+  if (!val || !val.startsWith('sk-')) { alert('Please enter a valid Anthropic API key (starts with sk-)'); return; }
+  localStorage.setItem('fintrack_ai_key', val);
+  document.getElementById('ai-key-wrap').style.display='none';
+  appendAIMsg('bot','API key saved! Ask me anything about your portfolio.');
+}
+
+function appendAIMsg(role, text) {
+  const msgs = document.getElementById('ai-msgs');
+  if (!msgs) return;
+  const div = document.createElement('div');
+  div.className = 'ai-msg ' + role;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const msg = (input?.value||'').trim();
+  if (!msg) return;
+  input.value = '';
+
+  const apiKey = localStorage.getItem('fintrack_ai_key');
+  if (!apiKey) {
+    appendAIMsg('user', msg);
+    document.getElementById('ai-key-wrap').style.display='block';
+    appendAIMsg('bot','Please enter your Anthropic API key below to enable the AI assistant.');
+    return;
+  }
+
+  appendAIMsg('user', msg);
+  const thinking = appendAIMsg('bot','Thinking…');
+  thinking.classList.add('thinking');
+
+  aiHistory.push({role:'user', content: msg});
+  if (aiHistory.length > 20) aiHistory = aiHistory.slice(-20);
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5',
+        max_tokens: 400,
+        system: AI_SYSTEM,
+        messages: aiHistory,
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(()=>({}));
+      thinking.textContent = 'Error ' + res.status + ': ' + (err.error?.message || 'API request failed');
+      thinking.classList.remove('thinking');
+      return;
+    }
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Sorry, no response.';
+    aiHistory.push({role:'assistant', content: reply});
+    thinking.textContent = reply;
+    thinking.classList.remove('thinking');
+  } catch(e) {
+    thinking.textContent = 'Network error: ' + e.message;
+    thinking.classList.remove('thinking');
+  }
+}
 
 </script>
