@@ -212,6 +212,61 @@ td:nth-child(-n+2){text-align:left}
 }
 
 
+
+/* ── ALLOCATE PAGE ───────────────────────── */
+.alloc-hero{background:linear-gradient(135deg,#1E3A8A,#4F46E5);padding:20px max(20px,env(safe-area-inset-left,0px)) 20px}
+.alloc-hero-title{font-size:14px;font-weight:700;color:#fff}
+.alloc-hero-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:3px}
+.risk-row{margin-top:12px}
+.risk-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.risk-btns{display:flex;gap:8px}
+.risk-btn{flex:1;padding:8px 4px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font);text-align:center}
+.risk-btn.active-risk{border-color:#fff;background:rgba(255,255,255,.25);color:#fff;font-weight:700}
+.alloc-amount-row{display:flex;gap:8px;margin-top:14px;align-items:center}
+.alloc-input{flex:1;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 13px;color:#fff;font-family:var(--font);font-size:16px;font-weight:700;outline:none}
+.alloc-input::placeholder{color:rgba(255,255,255,.45)}
+.alloc-ccy-sel{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 10px;color:#fff;font-family:var(--font);font-size:12px;font-weight:600;outline:none;cursor:pointer;min-width:70px}
+.alloc-ccy-sel option{color:#0F172A;background:#fff}
+.alloc-body{padding:16px max(16px,env(safe-area-inset-left,0px))}
+.pie-wrap{display:flex;justify-content:center;margin-bottom:16px}
+.pie-svg{width:200px;height:200px;overflow:visible;filter:drop-shadow(0 4px 16px rgba(37,99,235,.12))}
+.pie-center{font-size:11px;fill:var(--muted);font-family:var(--font)}
+.pie-center-val{font-size:18px;font-weight:700;fill:var(--text);font-family:var(--font)}
+.alloc-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.alloc-total-lbl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.alloc-total-val{font-size:13px;font-weight:700}
+.alloc-total-ok{color:var(--green)}.alloc-total-warn{color:var(--red)}.alloc-total-low{color:#F59E0B}
+.balance-btn{font-size:10px;font-weight:600;color:var(--blue);background:var(--blue-light);border:none;border-radius:20px;padding:4px 10px;cursor:pointer}
+.sector-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
+.sector-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:2px}
+.sector-inner{flex:1;min-width:0}
+.sector-top{display:flex;align-items:center;gap:8px}
+.sector-name{flex:1;font-size:12px;font-weight:600;color:var(--text)}
+.sector-pct-input{width:52px;text-align:center;border:1px solid var(--border2);border-radius:7px;padding:4px 6px;font-size:12px;font-weight:700;color:var(--text);font-family:var(--font);background:var(--surface2);outline:none}
+.sector-amt{font-size:11px;color:var(--muted);min-width:68px;text-align:right;font-variant-numeric:tabular-nums}
+.sector-slider{width:100%;accent-color:var(--blue);cursor:pointer;height:4px;margin:5px 0}
+.stock-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.stock-chip{font-size:9px;font-weight:700;color:var(--text);background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:2px 6px}
+.stock-chip.crypto{color:#F7B500;border-color:rgba(247,181,0,.35);background:rgba(247,181,0,.1)}
+.crypto-toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:11px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.crypto-toggle-lbl{font-size:12px;font-weight:600;color:var(--text)}
+.crypto-toggle-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.toggle-switch{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;background:var(--border2);border-radius:11px;cursor:pointer;transition:background .2s}
+.toggle-track:before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle-switch input:checked~.toggle-track{background:#F7B500}
+.toggle-switch input:checked~.toggle-track:before{transform:translateX(18px)}
+.alloc-breakdown{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);margin-top:4px}
+.alloc-breakdown-hdr{background:var(--surface2);padding:9px 14px;font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;display:grid;grid-template-columns:1fr 56px 86px}
+.alloc-breakdown-row{padding:10px 14px;display:grid;grid-template-columns:1fr 56px 86px;border-top:1px solid var(--border);align-items:center;cursor:pointer}
+.alloc-row-name{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600}
+.alloc-row-pct{font-size:11px;color:var(--muted);font-weight:600;text-align:right}
+.alloc-row-amt{font-size:12px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.breakdown-stock-row{padding:7px 14px 7px 34px;display:grid;grid-template-columns:1fr 56px 86px;border-top:1px solid var(--border);background:var(--surface)}
+.breakdown-stock-name{font-size:10px;color:var(--muted);font-weight:600}
+.breakdown-stock-pct{font-size:10px;color:var(--muted);text-align:right}
+.breakdown-stock-amt{font-size:10px;font-weight:700;color:var(--blue);text-align:right;font-variant-numeric:tabular-nums}
 </style>
 
 <div id="app">
@@ -399,6 +454,61 @@ td:nth-child(-n+2){text-align:left}
   </div>
 </div>
 
+<!-- ══ PAGE 4: ALLOCATE ════════════════════ -->
+<div class="page" id="p-allocate">
+  <div class="alloc-hero">
+    <div class="alloc-hero-title">Portfolio Allocator</div>
+    <div class="alloc-hero-sub">Enter an amount — we split it across sectors for you</div>
+    <div class="risk-row">
+      <div class="risk-lbl">Risk Profile</div>
+      <div class="risk-btns">
+        <button id="risk-low"  class="risk-btn" onclick="setRiskProfile('low')">🛡 Low Risk<br><span style="font-size:9px;opacity:.75">Steady returns</span></button>
+        <button id="risk-mid"  class="risk-btn active-risk" onclick="setRiskProfile('mid')">⚖ Medium Risk<br><span style="font-size:9px;opacity:.8">Balanced</span></button>
+        <button id="risk-high" class="risk-btn" onclick="setRiskProfile('high')">🚀 High Risk<br><span style="font-size:9px;opacity:.75">High reward</span></button>
+      </div>
+    </div>
+    <div class="alloc-amount-row">
+      <input class="alloc-input" id="alloc-amount" type="number" placeholder="10000" value="10000" min="1" oninput="renderAllocate()">
+      <select class="alloc-ccy-sel" id="alloc-ccy" onchange="renderAllocate()">
+        <option value="USD">USD $</option>
+        <option value="EUR">EUR €</option>
+        <option value="GBP">GBP £</option>
+        <option value="JPY">JPY ¥</option>
+        <option value="TRY">TRY ₺</option>
+      </select>
+    </div>
+  </div>
+  <div class="alloc-body">
+    <div class="crypto-toggle-row">
+      <div>
+        <div class="crypto-toggle-lbl"><span style="color:#F7B500">₿</span> Include Crypto / Alt. Assets</div>
+        <div class="crypto-toggle-sub">ETH · BTC · SOL · COIN · MSTR — optional</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="crypto-toggle" onchange="toggleCrypto(this.checked)">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="pie-wrap">
+      <svg class="pie-svg" id="alloc-pie" viewBox="0 0 200 200"></svg>
+    </div>
+    <div class="alloc-total-row">
+      <span class="alloc-total-lbl">Allocated</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="balance-btn" onclick="autoBalance()">⚖ Auto-balance</button>
+        <span class="alloc-total-val" id="alloc-total-val">100%</span>
+      </div>
+    </div>
+    <div id="alloc-sectors"></div>
+    <div class="section-lbl" style="margin-top:16px;margin-bottom:8px">Breakdown</div>
+    <div class="alloc-breakdown">
+      <div class="alloc-breakdown-hdr"><span>Sector</span><span style="text-align:right">%</span><span style="text-align:right">Amount</span></div>
+      <div id="alloc-breakdown-rows"></div>
+    </div>
+    <div style="font-size:9px;color:var(--muted);margin-top:12px;text-align:center;padding-bottom:4px">Default weights · Global Stock Market by Sector 2025 · Damodaran / Visual Capitalist</div>
+  </div>
+</div>
+
 <nav>
   <button class="nav-item active" id="nav-home" onclick="goPage('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
@@ -411,6 +521,10 @@ td:nth-child(-n+2){text-align:left}
   <button class="nav-item" id="nav-watchlist" onclick="goPage('watchlist')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
     Watchlist
+  </button>
+  <button class="nav-item" id="nav-allocate" onclick="goPage('allocate')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 7.07 17.07"/><path d="M12 12 2.93 7.5"/><path d="M12 2v10l7.07 2.5"/></svg>
+    Allocate
   </button>
 </nav>
 </div>
@@ -703,6 +817,7 @@ function goPage(p){
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('p-'+p).classList.add('active');
   document.getElementById('nav-'+p).classList.add('active');
+  if(p==='allocate') renderAllocate();
 }
 
 /* ── category buttons ─── */
@@ -835,5 +950,155 @@ renderTable();updateInvHero();updateSummaryTab();updatePlats();updateLanding();u
 setInterval(tick,1200);
 fetchRealPrices();
 setInterval(fetchRealPrices, 30000);
+
+
+// ═══════════════════════════════════════════
+// PORTFOLIO ALLOCATOR
+// ═══════════════════════════════════════════
+
+const SECTORS = [
+  { name:"Information Tech",  color:"#6366F1", stocks:["AAPL","MSFT","NVDA","TSM","ASML","AVGO","AMD"] },
+  { name:"Financials",        color:"#0EA5E9", stocks:["AXP","JPM","V","MA","GS","BRK-B","HSBC"] },
+  { name:"Industrials",       color:"#F59E0B", stocks:["CAT","HON","RTX","GE","UPS","DE","BA"] },
+  { name:"Consumer Discret.", color:"#EC4899", stocks:["AMZN","TSLA","NKE","MCD","HD","BKNG","TM"] },
+  { name:"Health Care",       color:"#10B981", stocks:["JNJ","UNH","LLY","ABBV","PFE","MRK","NVO"] },
+  { name:"Communications",    color:"#8B5CF6", stocks:["META","GOOG","NFLX","DIS","T","VZ","SNAP"] },
+  { name:"Consumer Staples",  color:"#14B8A6", stocks:["PG","KO","PEP","WMT","COST","PM","MDLZ"] },
+  { name:"Materials",         color:"#F97316", stocks:["LIN","APD","ECL","NEM","FCX","BHP","RIO"] },
+  { name:"Energy",            color:"#EF4444", stocks:["XOM","CVX","COP","SLB","BP","TTE","PSX"] },
+  { name:"Real Estate",       color:"#84CC16", stocks:["PLD","AMT","EQIX","CCI","SPG","PSA","O"] },
+  { name:"Utilities",         color:"#64748B", stocks:["NEE","DUK","SO","D","EXC","AEP","XEL"] },
+  { name:"Crypto / Alt.",     color:"#F7B500", stocks:["ETH","BTC","SOL","BNB","COIN","MSTR","IBIT"], crypto:true },
+];
+
+const RISK_WEIGHTS = {
+  low:  [7, 18, 11, 1,  15, 3,  14, 1,  5,  8,  12, 5 ],
+  mid:  [19, 16, 11, 10, 9,  7,  5,  5,  5,  3,  3,  7 ],
+  high: [28, 12, 9,  14, 6,  9,  2,  3,  2,  1,  1,  13],
+};
+
+let allocPcts = [...RISK_WEIGHTS.mid];
+let currentRisk = 'mid';
+let cryptoOn = false;
+allocPcts[11] = 0; // crypto off by default
+
+function setRiskProfile(risk) {
+  currentRisk = risk;
+  allocPcts = [...RISK_WEIGHTS[risk]];
+  if (!cryptoOn) allocPcts[11] = 0;
+  document.querySelectorAll('.risk-btn').forEach(b => {
+    b.classList.toggle('active-risk', b.id === 'risk-' + risk);
+  });
+  renderAllocate();
+}
+
+function toggleCrypto(on) {
+  cryptoOn = on;
+  allocPcts[11] = on ? RISK_WEIGHTS[currentRisk][11] : 0;
+  renderAllocate();
+}
+
+function allocAmount() { return parseFloat(document.getElementById('alloc-amount')?.value) || 0; }
+function allocCcy()    { return document.getElementById('alloc-ccy')?.value || 'USD'; }
+
+function fmtAllocAmt(usdVal) {
+  const ccy = allocCcy(), rate = FX[ccy] || 1;
+  const sym = {USD:'$',EUR:'€',GBP:'£',JPY:'¥',TRY:'₺'}[ccy] || '';
+  const v = usdVal * rate;
+  if (Math.abs(v) >= 1e6) return sym + (v/1e6).toFixed(2) + 'M';
+  if (Math.abs(v) >= 1e3) return sym + (v/1e3).toFixed(1) + 'k';
+  return sym + v.toFixed(2);
+}
+
+function totalPct() { return allocPcts.reduce((a,b)=>a+b,0); }
+
+function drawPie() {
+  const svg = document.getElementById('alloc-pie');
+  if (!svg) return;
+  const total = totalPct();
+  if (total <= 0) { svg.innerHTML = ''; return; }
+  const cx=100, cy=100, r=80, ri=48;
+  let angle = -Math.PI/2, paths = '';
+  SECTORS.forEach((s,i) => {
+    if (s.crypto && !cryptoOn) return;
+    const frac = allocPcts[i] / total;
+    if (frac <= 0) return;
+    const sweep = frac * 2 * Math.PI;
+    const x1=cx+r*Math.cos(angle),   y1=cy+r*Math.sin(angle);
+    const x2=cx+r*Math.cos(angle+sweep), y2=cy+r*Math.sin(angle+sweep);
+    const ix1=cx+ri*Math.cos(angle),  iy1=cy+ri*Math.sin(angle);
+    const ix2=cx+ri*Math.cos(angle+sweep), iy2=cy+ri*Math.sin(angle+sweep);
+    const lg = sweep > Math.PI ? 1 : 0;
+    paths += `<path d="M${ix1},${iy1}L${x1},${y1}A${r},${r},0,${lg},1,${x2},${y2}L${ix2},${iy2}A${ri},${ri},0,${lg},0,${ix1},${iy1}Z" fill="${s.color}" opacity="0.9" style="cursor:pointer" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.9"><title>${s.name}: ${allocPcts[i]}%</title></path>`;
+    angle += sweep;
+  });
+  const amtLine = fmtAllocAmt(allocAmount() / (FX[allocCcy()]||1));
+  svg.innerHTML = paths +
+    `<text x="100" y="93" text-anchor="middle" class="pie-center">Total</text>` +
+    `<text x="100" y="113" text-anchor="middle" class="pie-center-val">${amtLine}</text>`;
+}
+
+function renderAllocate() {
+  const total = totalPct();
+  const tv = document.getElementById('alloc-total-val');
+  if (tv) {
+    tv.textContent = total + '%';
+    tv.className = 'alloc-total-val ' + (total===100 ? 'alloc-total-ok' : total>100 ? 'alloc-total-warn' : 'alloc-total-low');
+  }
+  const sc = document.getElementById('alloc-sectors');
+  if (sc) {
+    sc.innerHTML = SECTORS.map((s,i) => {
+      if (s.crypto && !cryptoOn) return '';
+      const chips = s.stocks.map(t => `<span class="stock-chip${s.crypto?' crypto':''}">${t}</span>`).join('');
+      return `<div class="sector-row">
+        <div class="sector-dot" style="background:${s.color}"></div>
+        <div class="sector-inner">
+          <div class="sector-top">
+            <span class="sector-name">${s.name}</span>
+            <input type="number" class="sector-pct-input" min="0" max="100" value="${allocPcts[i]}"
+              oninput="allocPcts[${i}]=Math.max(0,Math.min(100,+this.value||0));renderAllocate()">
+            <span class="sector-amt">${fmtAllocAmt(allocAmount() * allocPcts[i]/100 / (FX[allocCcy()]||1))}</span>
+          </div>
+          <input type="range" class="sector-slider" min="0" max="60" value="${allocPcts[i]}"
+            oninput="allocPcts[${i}]=+this.value;document.querySelectorAll('.sector-pct-input')[${i}].value=this.value;renderAllocate()">
+          <div class="stock-chips">${chips}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  const br = document.getElementById('alloc-breakdown-rows');
+  if (br) {
+    const baseUSD = allocAmount() / (FX[allocCcy()]||1);
+    br.innerHTML = SECTORS.map((s,i) => {
+      if (s.crypto && !cryptoOn) return '';
+      const sAmt = baseUSD * allocPcts[i] / 100;
+      const perStock = sAmt / s.stocks.length;
+      const pctEach = allocPcts[i] > 0 ? (allocPcts[i] / s.stocks.length).toFixed(1) : '0';
+      const stockRows = allocPcts[i] > 0 ? s.stocks.map(t =>
+        `<div class="breakdown-stock-row">
+          <span class="breakdown-stock-name${s.crypto?' crypto':''}" style="${s.crypto?'color:#F7B500':''}">${t}</span>
+          <span class="breakdown-stock-pct">${pctEach}%</span>
+          <span class="breakdown-stock-amt">${fmtAllocAmt(perStock)}</span>
+        </div>`).join('') : '';
+      return `<div class="alloc-breakdown-row" onclick="const nx=this.nextElementSibling;if(nx)nx.style.display=nx.style.display==='none'?'block':'none'">
+        <span class="alloc-row-name"><span class="sector-dot" style="background:${s.color}"></span>${s.name}</span>
+        <span class="alloc-row-pct">${allocPcts[i]}%</span>
+        <span class="alloc-row-amt">${fmtAllocAmt(sAmt)}</span>
+      </div><div style="display:none">${stockRows}</div>`;
+    }).join('');
+  }
+  drawPie();
+}
+
+function autoBalance() {
+  const n = SECTORS.filter((s,i) => !(s.crypto && !cryptoOn)).length;
+  const each = Math.floor(100/n), rem = 100 - each*n;
+  let r = 0;
+  SECTORS.forEach((s,i) => {
+    if (s.crypto && !cryptoOn) { allocPcts[i]=0; return; }
+    allocPcts[i] = each + (r < rem ? 1 : 0); r++;
+  });
+  renderAllocate();
+}
 
 </script>
