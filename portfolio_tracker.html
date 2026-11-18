@@ -313,6 +313,17 @@ td:nth-child(-n+2){text-align:left}
 .ai-key-save{background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;border-radius:9px;padding:0 13px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;height:34px}
 .ai-key-hint{font-size:9px;color:var(--muted);margin-top:5px}
 
+
+.crypto-toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:11px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.crypto-toggle-lbl{font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:7px}
+.crypto-toggle-sub{font-size:10px;color:var(--muted);font-weight:400;margin-top:1px}
+.toggle-switch{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;background:var(--border2);border-radius:11px;cursor:pointer;transition:background .2s}
+.toggle-track:before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle-switch input:checked~.toggle-track{background:#F7B500}
+.toggle-switch input:checked~.toggle-track:before{transform:translateX(18px)}
+
 </style>
 
 <div id="app">
@@ -558,6 +569,18 @@ td:nth-child(-n+2){text-align:left}
     </div>
   </div>
   <div class="alloc-body">
+    <div class="crypto-toggle-row">
+      <div>
+        <div class="crypto-toggle-lbl">
+          <span style="color:#F7B500">₿</span> Include Crypto / Alt. Assets
+        </div>
+        <div class="crypto-toggle-sub">ETH · BTC · SOL · COIN · MSTR — optional allocation</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="crypto-toggle" onchange="toggleCrypto(this.checked)">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
     <div class="pie-wrap">
       <svg class="pie-svg" id="alloc-pie" viewBox="0 0 200 200"></svg>
     </div>
@@ -1141,10 +1164,14 @@ const RISK_WEIGHTS = {
 
 let allocPcts = [...RISK_WEIGHTS.mid];
 let currentRisk = 'mid';
+let cryptoOn = false;
+// crypto is last sector (index 11); default off
+allocPcts[11] = 0;
 
 function setRiskProfile(risk) {
   currentRisk = risk;
   allocPcts = [...RISK_WEIGHTS[risk]];
+  if (!cryptoOn) allocPcts[11] = 0;
   document.querySelectorAll('.risk-btn').forEach(b => {
     const isActive = b.id === 'risk-' + risk;
     b.style.border = isActive ? '1.5px solid #fff' : '1.5px solid rgba(255,255,255,.25)';
@@ -1152,6 +1179,16 @@ function setRiskProfile(risk) {
     b.style.color = isActive ? '#fff' : 'rgba(255,255,255,.75)';
     b.style.fontWeight = isActive ? '700' : '600';
   });
+  renderAllocate();
+}
+
+function toggleCrypto(on) {
+  cryptoOn = on;
+  if (!on) {
+    allocPcts[11] = 0;
+  } else {
+    allocPcts[11] = RISK_WEIGHTS[currentRisk][11];
+  }
   renderAllocate();
 }
 
@@ -1182,6 +1219,7 @@ function drawPie() {
   let angle = -Math.PI/2;
   let paths = '';
   SECTORS.forEach((s,i) => {
+    if (s.crypto && !cryptoOn) return;
     const frac = allocPcts[i] / total;
     if (frac <= 0) return;
     const sweep = frac * 2 * Math.PI;
@@ -1209,6 +1247,7 @@ function renderAllocate() {
   const sc = document.getElementById('alloc-sectors');
   if (sc) {
     sc.innerHTML = SECTORS.map((s,i) => {
+      if (s.crypto && !cryptoOn) return '';
       const chips = s.stocks.map(t=>`<span class="stock-chip${s.crypto?' crypto':''}">${t}</span>`).join('');
       return `<div class="sector-row">
         <div class="sector-dot" style="background:${s.color}"></div>
@@ -1251,9 +1290,16 @@ function renderAllocate() {
 }
 
 function autoBalance() {
-  const each = Math.floor(100/SECTORS.length);
-  const rem  = 100 - each*SECTORS.length;
-  allocPcts = SECTORS.map((_,i)=>each+(i<rem?1:0));
+  const activeSectors = SECTORS.filter((s,i) => !(s.crypto && !cryptoOn));
+  const n = activeSectors.length;
+  const each = Math.floor(100/n);
+  const rem  = 100 - each*n;
+  let r = 0;
+  SECTORS.forEach((s,i) => {
+    if (s.crypto && !cryptoOn) { allocPcts[i]=0; return; }
+    allocPcts[i] = each + (r<rem?1:0);
+    r++;
+  });
   renderAllocate();
 }
 renderAllocate();
